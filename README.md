@@ -64,7 +64,7 @@ $ docker run -d -p 80:80 -p 443:443 \
     nginx
 ```
 
-* Second start the docker-gen container with the shared volumes and the template file:
+* Second start the docker-gen container with the shared volumes and the template file 'nginx.tmpl' that must be download in the '/path/to/nginx.tmpl' :
 ```bash
 $ docker run -d \
     --name nginx-gen \
@@ -74,6 +74,8 @@ $ docker run -d \
     jwilder/docker-gen \
     -notify-sighup nginx -watch -only-exposed -wait 5s:30s /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
 ```
+
+*-notify-sighup first argument is the CONTAINER NAME not the image NAME and may be different of 'nginx' by using a docker-compose file for example which generate a composed name.*
 
 * Then start this container (NGINX_DOCKER_GEN_CONTAINER variable must contain the docker-gen container name or id):
 ```bash
